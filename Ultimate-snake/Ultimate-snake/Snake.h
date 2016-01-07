@@ -1,20 +1,31 @@
 #pragma once
 #include <GLFW\glfw3.h>
 #include <iostream>
+#include <vector>
+
+
+struct Color {
+	float r, g, b;
+	Color(float,float,float);
+	void changeColor(float, float, float);
+
+};
 
 struct bodypart {
 	int x, y;
-	const float width = 0.1, height = 0.1;
-	bodypart * previousPart = 0, * nextPart = 0;
+	Color color = Color(1.f,1.f,1.f);
+	const float width = 1, height = 1;
+	//bodypart * previousPart = 0, * nextPart = 0;
 
-	void draw(int);
+	void draw();
+	bodypart(int,int);
 
 };
 
 class Snake {
 private:
 	int dx, dy;
-	bodypart*parts;
+	std::vector<bodypart> parts;
 
 
 public:
@@ -22,10 +33,12 @@ public:
 	int getDy();
 	void setDx(int);
 	void setDy(int);
-	bodypart* getBodyparts();
+	std::vector<bodypart> getBodyparts();
 	bodypart* getBodypartAt(int);
 	void move();
 	void draw();
+	void refreshBodyparts();
+	void addPart(bodypart*);
 	Snake();
 	~Snake();
 };

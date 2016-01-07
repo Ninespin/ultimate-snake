@@ -1,14 +1,19 @@
 #include "Snake.h"
 
 Snake::Snake() {
-	parts = new bodypart[2];
+	bodypart* p1 = { new bodypart(1,1) };
+	addPart(p1);
+	delete p1;
 
-	(*parts).nextPart = (parts + 1);
-	(*(parts + 1)).previousPart = parts;
+	p1 = { new bodypart(5,5) };
+	addPart(p1);
+	delete p1;
+	
+	
 
 }
 Snake::~Snake() {
-	delete parts;
+
 }
 
 void Snake::move() {
@@ -32,18 +37,38 @@ void Snake::move() {
 	
 void Snake::draw() {
 	
+	for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
+		if (i == parts.begin()) {
+			(*i).color.changeColor(1.f,0.f,0.f);
+		}
+		if (&i == &(parts.end()-1)) {
+			(*i).color.changeColor(1.f, 0.f, 0.f);
+			//(*i).nextPart = &(*(i + 1));
+		}
+		
+		(*i).draw();
 
-	int i = -1;
-	do{
-		i++;
-
-		(*(parts+i)).draw(i);
-
-
-	} while ((*(parts + i)).nextPart != 0);
+	}
 
 }
 
+void Snake::refreshBodyparts() {
+	for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
+		if (i != parts.begin()) {
+			//(*i).previousPart = &(*(i - 1));
+		}
+		if (i < parts.end()) {
+			//(*i).nextPart = &(*(i + 1));
+		}
+	}
+}
+
+void Snake::addPart(bodypart* p) {
+	parts.push_back(*p);
+	refreshBodyparts();
+
+
+}
 
 
 
@@ -57,12 +82,12 @@ int Snake::getDy() {
 	return dy;
 }
 
-bodypart* Snake::getBodyparts() {
+std::vector<bodypart> Snake::getBodyparts() {
 	return parts;
 }
 
 bodypart* Snake::getBodypartAt(int i) {
-	return (parts + i);
+	return &(parts.at(i));
 }
 
 
@@ -80,14 +105,35 @@ void Snake::setDy(int y) {
 
 
 
-void bodypart::draw(int i) {
+bodypart::bodypart(int x1, int y1){
+	x = x1;
+	y = y1;
+}
+
+void bodypart::draw() {
 	glBegin(GL_TRIANGLES);
 
-	glColor3f(1.f, 1.f, 1.f);
+	glColor3f(color.r, color.g, color.b);
 
-	glVertex2f(0.5f-width*i, 0.5f);
-	glVertex2f(0.75f- width*i, 0.5f);
-	glVertex2f(0.5f- width*i, 0.75f);
+	glVertex2f(x, y);
+	glVertex2f(x+width, y);
+	glVertex2f(x, y+height);
 
 	glEnd();
+}
+
+
+
+
+
+Color::Color(float r1, float g1, float b1) {
+	r = r1;
+	g = g1;
+	b = b1;
+}
+
+void Color::changeColor(float r1, float g1, float b1) {
+	r = r1;
+	g = g1;
+	b = b1;
 }
