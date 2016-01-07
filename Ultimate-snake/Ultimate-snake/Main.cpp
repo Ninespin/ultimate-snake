@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "Snake.h"
+
 #include <GLFW\glfw3.h>
 
 int testGlFW();
@@ -32,14 +34,16 @@ int testGlFW()
 
 	glfwSwapInterval(1);
 
-#if 1
-	glClearColor(1, 0, 0, 1);
-#endif
+	glClearColor(0, 0, 0, 1);
+
+	Snake s;
+
 	while (!glfwWindowShouldClose(window)) 
 	{
-#if 1
 		glClear(GL_COLOR_BUFFER_BIT);
-#endif
+
+		s.move();
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
