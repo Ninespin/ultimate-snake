@@ -19,5 +19,4 @@ public:
 	bodypart* getBodyparts();
 	bodypart* getBodypartAt(int);
 	void move();
-
 };
