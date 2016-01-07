@@ -25,41 +25,45 @@ namespace maths {
 	{
 		this->x += vecToAdd.x;
 		this->y += vecToAdd.y;
+		return *this;
 	}
 
 	Vec2& Vec2::sub(const Vec2& vecToSub)
 	{
 		this->x -= vecToSub.x;
 		this->y -= vecToSub.y;
+		return *this;
 	}
 
 	Vec2& Vec2::mul(int scalar)
 	{
 		this->x *= scalar;
 		this->y *= scalar;
+		return *this;
 	}
 	Vec2& Vec2::div(int scalar)
 	{
 		this->x /= scalar;
 		this->y /= scalar;
+		return *this;
 	}
 
 
 	Vec2& Vec2::operator+=(const Vec2& other)
 	{
-		add(other);
+		return add(other);
 	}
 	Vec2& Vec2::operator-=(const Vec2& other)
 	{
-		sub(other);
+		return sub(other);
 	}
 	Vec2& Vec2::operator*=(int scalar)
 	{
-		mul(scalar);
+		return mul(scalar);
 	}
 	Vec2& Vec2::operator/=(int scalar)
 	{
-		div(scalar);
+		return div(scalar);
 	}
 
 
