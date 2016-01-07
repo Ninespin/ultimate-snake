@@ -35,7 +35,7 @@ int testGlFW()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		s.move();
+		s.draw();
 
 		w.update();
 	}
