@@ -2,7 +2,7 @@
 
 Snake::Snake() {
 	parts = new bodypart[2];
-	
+
 	(*parts).nextPart = (parts + 1);
 	(*(parts + 1)).previousPart = parts;
 
@@ -28,18 +28,18 @@ void Snake::move() {
 	}*/
 	
 
-}
-
+	}
+	
 void Snake::draw() {
 	
 
 	int i = -1;
 	do{
 		i++;
-		
+
 		(*(parts+i)).draw(i);
 
-		
+
 	} while ((*(parts + i)).nextPart != 0);
 
 }

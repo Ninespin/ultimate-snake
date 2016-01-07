@@ -25,13 +25,23 @@ namespace graphics {
 			return false;
 		}
 
+		glfwSetWindowUserPointer(window, this);
+
 		glfwSetKeyCallback(window, key_callback);
+		glfwSetWindowSizeCallback(window, resize_callback);
 
 		glfwMakeContextCurrent(window);
 		return true;
 	}
 
 	void Window::update()
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, 10, 0, 10, 1, -1);
+	}
+
+	void Window::postUpdate()
 	{
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -53,5 +63,14 @@ namespace graphics {
 		{
 			glfwSetWindowShouldClose(window, true);
 		}
+	}
+
+	void Window::resize_callback(GLFWwindow* window, int width, int height)
+	{
+		Window* user = (Window*)glfwGetWindowUserPointer(window);
+
+		glfwGetFramebufferSize(window, &((*user).width), &((*user).height));
+
+		glViewport(0, 0, user->width, user->height);
 	}
 }
