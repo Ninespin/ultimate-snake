@@ -17,7 +17,7 @@ void Snake::move() {
 
 		i++;
 	}
-	
+
 
 }
 

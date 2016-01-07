@@ -33,11 +33,12 @@ int testGlFW()
 
 	while (!w.shouldClose()) 
 	{
+		w.update();
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		s.move();
 
-		w.update();
+		w.postUpdate();
 	}
 
 	glfwTerminate();

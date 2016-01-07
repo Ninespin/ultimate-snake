@@ -21,6 +21,7 @@ namespace graphics {
 		virtual ~Window();
 
 		void update();
+		void postUpdate();
 
 		bool shouldClose() const;
 		bool hasAnError() const;
@@ -28,7 +29,7 @@ namespace graphics {
 	private:
 		bool init();
 		static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-		
+		static void resize_callback(GLFWwindow* window, int width, int height);
 	};
 
 }
