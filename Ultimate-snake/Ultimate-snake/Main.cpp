@@ -27,7 +27,7 @@ int testGlFW()
 		//comment
 	}
 
-
+	
 	glfwMakeContextCurrent(window);
 
 	glfwSwapInterval(1);
