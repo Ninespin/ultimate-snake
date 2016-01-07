@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Snake.h"
+#include "src\graphics\Window.h"
 
 #include <GLFW\glfw3.h>
 
@@ -13,24 +14,16 @@ int main(int argc, char** argv) {
 
 int testGlFW() 
 {
+	using namespace graphics;
+	
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit())
 	{
 		std::cout << "GLFW failed to initialyse!" << std::endl;
 		return 1;
 	}
-
-	GLFWwindow* window = glfwCreateWindow(600, 600, "Ultimate Snake", NULL, NULL);
-
-	if (!window) 
-	{
-		glfwTerminate();
-		return 2;
-		//comment
-	}
-
 	
-	glfwMakeContextCurrent(window);
+	Window w(600, 600, "ULTIMATE SNAAAAAKE");
 
 	glfwSwapInterval(1);
 
@@ -38,17 +31,14 @@ int testGlFW()
 
 	Snake s;
 
-	while (!glfwWindowShouldClose(window)) 
+	while (!w.shouldClose()) 
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		s.move();
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+		w.update();
 	}
-
-	glfwDestroyWindow(window);
 
 	glfwTerminate();
 	return 0;
