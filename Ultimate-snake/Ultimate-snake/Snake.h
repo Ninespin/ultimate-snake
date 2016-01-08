@@ -12,12 +12,13 @@ struct Color {
 };
 
 struct bodypart {
-	int x, y;
+	int x, y,lastX,lastY;
 	Color color = Color(1.f,1.f,1.f);
 	const float width = 1, height = 1;
 	//bodypart * previousPart = 0, * nextPart = 0;
 
 	void draw();
+	void cycle();
 	bodypart(int,int);
 
 };

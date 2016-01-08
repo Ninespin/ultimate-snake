@@ -5,10 +5,19 @@ Snake::Snake() {
 	addPart(p1);
 	delete p1;
 
-	p1 = { new bodypart(5,5) };
+	p1 = { new bodypart(1,2) };
 	addPart(p1);
 	delete p1;
-	
+
+	p1 = { new bodypart(1,3) };
+	addPart(p1);
+	delete p1;
+
+	p1 = { new bodypart(1,4) };
+	addPart(p1);
+	delete p1;
+
+	dx = 1, dy = 0;
 	
 
 }
@@ -17,33 +26,35 @@ Snake::~Snake() {
 }
 
 void Snake::move() {
-	int i = 0;
-	/*while ( (*(parts+i)).nextPart != 0 ) {
+	for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
+		(*i).cycle();
+		if (i == parts.begin()) {
+			(*i).x += dx;
+			(*i).y += dy;
 
-		if ((*(parts + i)).previousPart == 0) {
-			(*(parts + i)).x += dx;
-			(*(parts + i)).y += dy;
+			//base AI (aka remove when keyboard input is processed)
+			if ((*i).x >= 9 || (*i).x <= 0) {
+				dx = -dx;
+				dy = -dy;
+			}
+			
+		}else{
+			(*i).x = (*(i - 1)).lastX;
+			(*i).y = (*(i - 1)).lastY;
 		}
-		else {
-			(*(parts + i)).x += (*((*(parts + i)).previousPart)).x;
-			(*(parts + i)).y += (*((*(parts + i)).previousPart)).y;
-		}
-
-		i++;
-	}*/
-	
-
 	}
+
+}
 	
 void Snake::draw() {
 	
-	for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
-		if (i == parts.begin()) {
+	for (std::vector<bodypart>::reverse_iterator i = parts.rbegin(); i != parts.rend(); i++) {
+		
+		if (i+1 == parts.rend()) {//head
 			(*i).color.changeColor(1.f,0.f,0.f);
 		}
-		if (&i == &(parts.end()-1)) {
-			(*i).color.changeColor(1.f, 0.f, 0.f);
-			//(*i).nextPart = &(*(i + 1));
+		if (i == parts.rbegin()) {//tail
+			(*i).color.changeColor(1.f, 1.f, 0.f);
 		}
 		
 		(*i).draw();
@@ -53,14 +64,7 @@ void Snake::draw() {
 }
 
 void Snake::refreshBodyparts() {
-	for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
-		if (i != parts.begin()) {
-			//(*i).previousPart = &(*(i - 1));
-		}
-		if (i < parts.end()) {
-			//(*i).nextPart = &(*(i + 1));
-		}
-	}
+	
 }
 
 void Snake::addPart(bodypart* p) {
@@ -111,15 +115,23 @@ bodypart::bodypart(int x1, int y1){
 }
 
 void bodypart::draw() {
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_TRIANGLE_FAN);
 
 	glColor3f(color.r, color.g, color.b);
+		glVertex2f(x+ width / 2, y+ height / 2);//center of the box
 
-	glVertex2f(x, y);
-	glVertex2f(x+width, y);
-	glVertex2f(x, y+height);
+		glVertex2f(x, y);
+		glVertex2f(x + width, y);
+		glVertex2f(x + width, y + height);
+		glVertex2f(x, y + height);
+		glVertex2f(x, y);
 
 	glEnd();
+}
+
+void bodypart::cycle() {
+	lastX = x;
+	lastY = y;
 }
 
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 #include "Snake.h"
 #include "src\graphics\Window.h"
@@ -30,18 +31,28 @@ int testGlFW()
 	glClearColor(0, 0, 0, 1);
 
 	Snake s;
+	long double lastTimeMarkerMS = time(0)*1000, now;
 
 	while (!w.shouldClose()) 
 	{
 		w.update();
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		//movement
+		now = time(0)*1000;
+		if (now - lastTimeMarkerMS >= 500) {//each 500 ms
+			s.move();
+			lastTimeMarkerMS = now;
+		}
 
+		//draw
 		s.draw();
 
 		w.postUpdate();
 	}
 
 	glfwTerminate();
+
 	return 0;
 }
 
