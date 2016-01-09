@@ -44,6 +44,7 @@ namespace graphics {
 	void Window::postUpdate()
 	{
 		glfwSwapBuffers(window);
+		(*keyboard).reset();
 		glfwPollEvents();
 	}
 

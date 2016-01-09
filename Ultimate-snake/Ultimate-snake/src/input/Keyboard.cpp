@@ -7,7 +7,8 @@ Keyboard::Keyboard(graphics::Window& win)
 
 	for (unsigned i = 0; i < KEYBOARD_MAX_KEY_NUM; i++)
 	{
-		b[i] = false;
+		keyPressedAbsolute[i] = false;
+		keyJustPressed[i] = false;
 	}
 }
 
@@ -20,7 +21,8 @@ void Keyboard::pressKey(int index, int action)
 {
 	if (index < KEYBOARD_MAX_KEY_NUM && index >= 0)
 	{
-		b[index] = (action != GLFW_RELEASE);
+		keyPressedAbsolute[index] = (action != GLFW_RELEASE);
+		keyJustPressed[index] = (action == GLFW_PRESS);
 	}
 }
 
@@ -28,10 +30,30 @@ bool Keyboard::isKeyPressed(unsigned int index) const
 {
 	if(index < KEYBOARD_MAX_KEY_NUM && index >= 0)
 	{
-		return b[index];
+		return keyPressedAbsolute[index];
 	}
 	else
 	{
 		return false;
+	}
+}
+
+bool Keyboard::isKeyJustPressed(unsigned int index) const
+{
+	if (index < KEYBOARD_MAX_KEY_NUM && index >= 0)
+	{
+		return keyJustPressed[index];
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Keyboard::reset()
+{
+	for (unsigned i = 0; i < KEYBOARD_MAX_KEY_NUM; i++)
+	{
+		keyJustPressed[i] = false;
 	}
 }

@@ -34,21 +34,17 @@ int testGlFW()
 	Snake s;
 	long double lastTimeMarkerMS = time(0)*1000, now;
 
+	int h = 0;
 	while (!w.shouldClose()) 
 	{
 		w.update();
 		glClear(GL_COLOR_BUFFER_BIT);
-		
+
 		//movement
 		now = time(0)*1000;
 		if (now - lastTimeMarkerMS >= 500) {//each 500 ms
 			s.move();
 			lastTimeMarkerMS = now;
-		}
-
-		if (k.isKeyPressed(GLFW_KEY_W)) 
-		{
-			std::cout << "W WAS PRASSAD!" << std::endl;
 		}
 
 		//draw
