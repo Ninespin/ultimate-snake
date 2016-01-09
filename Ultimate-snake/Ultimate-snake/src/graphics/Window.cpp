@@ -57,11 +57,21 @@ namespace graphics {
 		return isError;
 	}
 
+	void graphics::Window::setKeyboard(Keyboard * keyboard)
+	{
+		this->keyboard = keyboard;
+	}
+
 	void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		{
 			glfwSetWindowShouldClose(window, true);
+		}
+		Window* user = (Window*)glfwGetWindowUserPointer(window);
+		if (user->keyboard != 0)
+		{
+			user->keyboard->pressKey(key, action);
 		}
 	}
 

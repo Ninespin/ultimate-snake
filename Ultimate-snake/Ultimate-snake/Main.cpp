@@ -25,6 +25,7 @@ int testGlFW()
 	}
 	
 	Window w(600, 600, "ULTIMATE SNAAAAAKE");
+	Keyboard k(w);
 
 	glfwSwapInterval(1);
 
@@ -43,6 +44,11 @@ int testGlFW()
 		if (now - lastTimeMarkerMS >= 500) {//each 500 ms
 			s.move();
 			lastTimeMarkerMS = now;
+		}
+
+		if (k.isKeyPressed(GLFW_KEY_W)) 
+		{
+			std::cout << "W WAS PRASSAD!" << std::endl;
 		}
 
 		//draw

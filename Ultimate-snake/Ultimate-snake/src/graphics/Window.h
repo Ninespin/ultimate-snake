@@ -2,12 +2,13 @@
 
 #include <GLFW\glfw3.h>
 
+#include "../input/Keyboard.h"
 
 namespace graphics {
 
-	/**
+	/** 
 	 * Class used to manage a GLFW window
-	*/
+	 */
 	class Window
 	{
 	private:
@@ -15,6 +16,7 @@ namespace graphics {
 		int width, height;
 		const char* title;
 		bool isError = false;
+		Keyboard* keyboard;
 
 	public:
 		Window(int width, int height, const char* title);
@@ -25,6 +27,8 @@ namespace graphics {
 
 		bool shouldClose() const;
 		bool hasAnError() const;
+
+		void setKeyboard(Keyboard* keyboard);
 
 	private:
 		bool init();
