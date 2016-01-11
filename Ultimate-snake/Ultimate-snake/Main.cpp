@@ -42,7 +42,8 @@ int testGlFW()
 	glClearColor(0, 0, 0, 1);
 
 	Snake s;
-	long double lastTimeMarkerMS = time(0)*1000, now;
+
+	std::clock_t lastTimeMarkerMS = std::clock(), now;
 
 	int h = 0;
 	while (!w.shouldClose()) 
@@ -53,8 +54,9 @@ int testGlFW()
 		s.updateKeyboard(k);
 
 		//movement
-		now = time(0)*1000;
-		if (now - lastTimeMarkerMS >= 500) {//each 500 ms
+		now = std::clock();
+		double deltaT = (now - lastTimeMarkerMS) / (double)(CLOCKS_PER_SEC / 1000);
+		if (deltaT >= 250) {//each 250 ms
 			s.move();
 			lastTimeMarkerMS = now;
 		}
