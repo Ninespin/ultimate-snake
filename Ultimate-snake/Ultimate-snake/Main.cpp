@@ -1,10 +1,12 @@
 #include <iostream>
 #include <ctime>
 
+#define GLEW_STATIC
+#include <GL\glew.h>
+#include <GLFW\glfw3.h>
+
 #include "Snake.h"
 #include "src\graphics\Window.h"
-
-#include <GLFW\glfw3.h>
 
 int testGlFW();
 void error_callback(int error, const char* description);
@@ -27,6 +29,14 @@ int testGlFW()
 	Window w(600, 600, "ULTIMATE SNAAAAAKE");
 	Keyboard k(w);
 
+	//should be done by the renderer
+	GLenum err = glewInit();
+	if (GLEW_OK != err) 
+	{
+		std::cerr << "GLEW failed to initialyze!" << std::endl;
+		return 2;
+	}
+
 	glfwSwapInterval(1);
 
 	glClearColor(0, 0, 0, 1);
@@ -39,6 +49,8 @@ int testGlFW()
 	{
 		w.update();
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		s.updateKeyboard(k);
 
 		//movement
 		now = time(0)*1000;

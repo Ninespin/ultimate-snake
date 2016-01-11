@@ -31,19 +31,43 @@ void Snake::move() {
 		if (i == parts.begin()) {
 			(*i).x += dx;
 			(*i).y += dy;
-
+#if 0
 			//base AI (aka remove when keyboard input is processed)
 			if ((*i).x >= 9 || (*i).x <= 0) {
 				dx = -dx;
 				dy = -dy;
 			}
-			
+#endif			
 		}else{
 			(*i).x = (*(i - 1)).lastX;
 			(*i).y = (*(i - 1)).lastY;
 		}
 	}
 
+}
+
+void Snake::updateKeyboard(const Keyboard& key)
+{
+	if (key.isKeyJustPressed(GLFW_KEY_UP) && dy == 0)
+	{
+		dy = 1;
+		dx = 0;
+	}
+	else if (key.isKeyJustPressed(GLFW_KEY_DOWN) && dy == 0)
+	{
+		dy = -1;
+		dx = 0;
+	}
+	else if (key.isKeyJustPressed(GLFW_KEY_RIGHT) && dx == 0)
+	{
+		dy = 0;
+		dx = 1;
+	}
+	else if (key.isKeyJustPressed(GLFW_KEY_LEFT) && dx == 0)
+	{
+		dy = 0;
+		dx = -1;
+	}
 }
 	
 void Snake::draw() {

@@ -2,7 +2,7 @@
 #include <GLFW\glfw3.h>
 #include <iostream>
 #include <vector>
-
+#include "src\input\Keyboard.h"
 
 struct Color {
 	float r, g, b;
@@ -38,6 +38,7 @@ public:
 	bodypart* getBodypartAt(int);
 	void move();
 	void draw();
+	void updateKeyboard(const Keyboard& key);
 	void refreshBodyparts();
 	void addPart(bodypart*);
 	Snake();
