@@ -31,19 +31,43 @@ void Snake::move() {
 		if (i == parts.begin()) {
 			(*i).x += dx;
 			(*i).y += dy;
-#if 0
-			//base AI (aka remove when keyboard input is processed)
-			if ((*i).x >= 9 || (*i).x <= 0) {
-				dx = -dx;
-				dy = -dy;
-			}
-#endif			
 		}else{
 			(*i).x = (*(i - 1)).lastX;
 			(*i).y = (*(i - 1)).lastY;
 		}
+
 	}
 
+}
+
+void Snake::checkIfDead() {
+	//is out of the screen
+	if ( parts.at(0).x >= 9 || parts.at(0).x <= 0 || parts.at(0).y >= 9 || parts.at(0).y <= 0) {//note: 9 is screen wt, change that for static var of window eventually
+		die();
+		return;
+
+	}else {
+		for (std::vector<bodypart>::iterator i = parts.begin()+1; i != parts.end(); i++) {
+			if ((*i) == parts.at(0)) {
+				die();
+				return;
+			}
+
+		}
+
+	}
+
+}
+
+void Snake::die(){
+	dx = 0;
+	dy = 0;
+	for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
+		(*i).color.r = 255;
+		(*i).color.g = 0;
+		(*i).color.b = 255;
+
+	}
 }
 
 void Snake::updateKeyboard(const Keyboard& key)
@@ -154,8 +178,11 @@ void bodypart::draw() {
 }
 
 void bodypart::cycle() {
-	lastX = x;
-	lastY = y;
+	if (lastX != x || lastY != y) {
+		lastX = x;
+		lastY = y;
+	}
+	
 }
 
 

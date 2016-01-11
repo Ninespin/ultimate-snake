@@ -15,12 +15,16 @@ struct bodypart {
 	int x, y,lastX,lastY;
 	Color color = Color(1.f,1.f,1.f);
 	const float width = 1, height = 1;
-	//bodypart * previousPart = 0, * nextPart = 0;
 
 	void draw();
 	void cycle();
 	bodypart(int,int);
 
+
+	inline bool operator==(const bodypart& p1){
+		if (p1.x == this->x && p1.y == this->y)return true;
+		return false;
+	}
 };
 
 class Snake {
@@ -41,6 +45,8 @@ public:
 	void updateKeyboard(const Keyboard& key);
 	void refreshBodyparts();
 	void addPart(bodypart*);
+	void checkIfDead();
+	void die();
 	Snake();
 	~Snake();
 };
