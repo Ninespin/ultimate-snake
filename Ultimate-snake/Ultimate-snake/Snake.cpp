@@ -37,6 +37,7 @@ void Snake::move() {
 		}
 
 	}
+	checkIfDead();
 
 }
 
