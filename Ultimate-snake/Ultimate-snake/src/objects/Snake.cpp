@@ -1,5 +1,14 @@
 #include "Snake.h"
 
+
+/*==================
+		Snake
+  ==================*/
+
+//static constants
+const double Snake::moveDelayMS = 250;
+
+//methods
 Snake::Snake() {
 	bodypart* p1 = { new bodypart(1,1,&isdead) };
 	addPart(p1);
@@ -134,8 +143,6 @@ void Snake::addPart(bodypart* p) {
 }
 
 
-
-
 //gets
 int Snake::getDx() {
 	return dx;
@@ -169,9 +176,9 @@ void Snake::setDy(int y) {
 
 
 
-/*
-	bodypart
-*/
+/*=======================
+		bodypart
+  =======================*/
 
 
 bodypart::bodypart(int x1, int y1,bool* b){
