@@ -132,6 +132,7 @@
     <ClCompile Include="src\objects\Orb.cpp" />
     <ClCompile Include="src\objects\Snake.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
+    <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\input\Keyboard.cpp" />
     <ClCompile Include="src\math\Vec2.cpp" />
@@ -142,9 +143,14 @@
     <ClInclude Include="src\objects\Snake.h" />
     <ClInclude Include="src\constants\windowConstants.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
+    <ClInclude Include="src\graphics\Shader.h" />
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\input\Keyboard.h" />
     <ClInclude Include="src\math\Vec2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\graphics\Shaders\FragShader.txt" />
+    <Text Include="src\graphics\Shaders\VertexShader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

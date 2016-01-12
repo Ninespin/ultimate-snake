@@ -30,6 +30,9 @@
     <ClCompile Include="src\graphics\Renderer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Shader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="src\objects\Snake.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -65,5 +68,12 @@
     <ClInclude Include="src\misc\Color.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\Shader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\graphics\Shaders\FragShader.txt" />
+    <Text Include="src\graphics\Shaders\VertexShader.txt" />
   </ItemGroup>
 </Project>
