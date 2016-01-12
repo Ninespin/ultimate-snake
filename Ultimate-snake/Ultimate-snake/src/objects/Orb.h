@@ -7,7 +7,7 @@
 class Orb {
 private:
 	int x, y;
-	Color color,fadeColor;
+	Color originalColor,fadeColor;
 	std::clock_t lastTimeMarker, now;
 	double deltaT,fadeLevel;
 
