@@ -2,23 +2,21 @@
 #include <GLFW\glfw3.h>
 #include <iostream>
 #include <vector>
-#include "src\input\Keyboard.h"
+#include "..\input\Keyboard.h"
+#include "..\constants\windowConstants.h"
+#include "..\misc\Color.h"
 
-struct Color {
-	float r, g, b;
-	Color(float,float,float);
-	void changeColor(float, float, float);
 
-};
 
 struct bodypart {
 	int x, y,lastX,lastY;
 	Color color = Color(1.f,1.f,1.f);
 	const float width = 1, height = 1;
+	bool* parentIsDead;
 
 	void draw();
 	void cycle();
-	bodypart(int,int);
+	bodypart(int,int,bool*);
 
 
 	inline bool operator==(const bodypart& p1){
@@ -29,13 +27,15 @@ struct bodypart {
 
 class Snake {
 private:
-	int dx, dy;
+	bool isdead = false;
+	int dx, dy,queued_dx,queued_dy;
 	std::vector<bodypart> parts;
 
 
 public:
 	int getDx();
 	int getDy();
+	bool isDead();
 	void setDx(int);
 	void setDy(int);
 	std::vector<bodypart> getBodyparts();
