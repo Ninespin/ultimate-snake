@@ -5,7 +5,7 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
-#include "Snake.h"
+#include "src\objects\Snake.h"
 #include "src\graphics\Window.h"
 
 int testGlFW();
