@@ -33,12 +33,30 @@ namespace graphics {
 
 		glCompileShader(fragShader);
 		error = !testCompileStatus(fragShader);
+
 		if (error) return;
+
+		program = glCreateProgram();
+		glAttachShader(program, vertShader);
+		glAttachShader(program, fragShader);
+		glLinkProgram(program);
+		error = !testLinkStatus(program);
+		if (error)return;
+
+		glDetachShader(program, vertShader);
+		glDetachShader(program, fragShader);
+
+		glDeleteShader(vertShader);
+		glDeleteShader(fragShader);
 	}
 
 	Shader::~Shader()
 	{
 		delete[] errorLog;
+		if (!error)
+		{
+			glDeleteProgram(program);
+		}
 	}
 
 	unsigned long Shader::getFileLength(std::ifstream& in)
@@ -89,7 +107,7 @@ namespace graphics {
 		*shaderSource = 0;
 	}
 
-	bool graphics::Shader::testCompileStatus(GLuint shader)
+	bool Shader::testCompileStatus(GLuint shader)
 	{
 		GLint success = 0;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
@@ -105,5 +123,35 @@ namespace graphics {
 			return false;
 		}
 		return true;
+	}
+
+	bool Shader::testLinkStatus(GLuint pogram)
+	{
+		GLint sucess = 0;
+		glGetProgramiv(program, GL_LINK_STATUS, &sucess);
+		if (sucess == GL_FALSE)
+		{
+			GLint logLength = 0;
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
+
+			errorLog = new char[logLength];
+			glGetProgramInfoLog(program, logLength, &logLength, errorLog);
+
+			glDeleteProgram(program);
+			return false;
+		}
+		return true;
+	}
+
+	GLuint Shader::getProgram() const
+	{
+		if (!error) 
+		{
+			return program;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 }

@@ -52,12 +52,18 @@ int testGlFW()
 
 	std::clock_t lastTimeMarkerMS = std::clock(), now;
 
+	//todo replace by union in wondow
+
+	GLint sizeLocation = glGetUniformLocation(shader.getProgram(), "screenRes");
+	glUseProgram(shader.getProgram());
+	glUniform2f(sizeLocation, w.getWidth(), w.getHeight());
+	glUseProgram(0);
+
 	int h = 0;
 	while (!w.shouldClose()) 
 	{
 		w.update();
 		glClear(GL_COLOR_BUFFER_BIT);
-
 		s.updateKeyboard(k);
 
 		//movement
@@ -70,12 +76,17 @@ int testGlFW()
 		}
 
 		//draw
+		glUseProgram(shader.getProgram());
 		s.draw();
+		glUseProgram(0);
+
 
 		w.postUpdate();
 	}
 
 	glfwTerminate();
+
+
 
 	return 0;
 }

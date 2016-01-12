@@ -1,3 +1,18 @@
+#version 130
+
+in vec4 vColor;
+
+uniform vec2 screenRes;
+
 void main (void)  
 {
-	gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);  
+	vec2 normCoord = gl_FragCoord.xy/screenRes;
+
+	vec4 finalColor = vec4(normCoord, 1.0 - normCoord.y, 1.0);
+	
+	finalColor = (finalColor + vColor)/2.0;
+
+
+
+	gl_FragColor = finalColor;
+}

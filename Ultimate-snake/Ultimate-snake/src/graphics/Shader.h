@@ -9,7 +9,7 @@ namespace graphics{
 	class Shader
 	{
 	private:
-		GLuint vertShader, fragShader;
+		GLuint vertShader, fragShader, program;
 		bool error;
 		char* errorLog;
 	public:
@@ -20,8 +20,10 @@ namespace graphics{
 		int loadShaderSource(const char* fileName, GLchar** shaderSource, unsigned long& len);
 		void unloadShaderSource(GLchar** shaderSource);
 		bool testCompileStatus(GLuint shader);
+		bool testLinkStatus(GLuint pogram);
 	public:
 		bool isError() const { return error; }
 		const char* getError() const { return errorLog; }
+		GLuint getProgram() const;
 	};
 }

@@ -29,6 +29,9 @@ namespace graphics {
 		bool hasAnError() const;
 
 		void setKeyboard(Keyboard* keyboard);
+		
+		int getHeight() const { return height; };
+		int getWidth() const { return width; };
 
 	private:
 		bool init();
