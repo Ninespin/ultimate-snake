@@ -38,7 +38,12 @@ int testGlFW()
 		std::cerr << "GLEW failed to initialyze!" << std::endl;
 		return 2;
 	}
-
+	Shader shader("src/graphics/Shaders/VertexShader.txt",
+		"src/graphics/Shaders/FragShader.txt");
+	if (shader.isError())
+	{
+		std::cout << shader.getError() << std::endl;
+	}
 	glfwSwapInterval(1);
 
 	glClearColor(0, 0, 0, 1);

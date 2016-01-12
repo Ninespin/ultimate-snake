@@ -3,6 +3,44 @@
 namespace graphics {
 
 
+	Shader::Shader(const char* vertPath, const char* fragPath)
+	{
+		vertShader = glCreateShader(GL_VERTEX_SHADER);
+		fragShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+		unsigned long vertSourceLength;
+		GLchar * vertShaderSource[1];
+		int vertSourceFetchErr = loadShaderSource(vertPath, vertShaderSource, vertSourceLength);
+
+		unsigned long fragSourceLength;
+		GLchar * fragShaderSource[1];
+		int fragSourceFetchErr = loadShaderSource(fragPath, fragShaderSource, fragSourceLength);
+
+		error = (vertSourceFetchErr != 0) || (fragSourceFetchErr != 0);
+
+		if (error)
+		{
+			errorLog = "ERROR while reading shader files";
+			return;
+		}
+
+		glShaderSource(vertShader, 1, vertShaderSource, NULL);
+		glShaderSource(fragShader, 1, fragShaderSource, NULL);
+
+		glCompileShader(vertShader);
+		error = !testCompileStatus(vertShader);
+		if (error) return;
+
+		glCompileShader(fragShader);
+		error = !testCompileStatus(fragShader);
+		if (error) return;
+	}
+
+	Shader::~Shader()
+	{
+		delete[] errorLog;
+	}
+
 	unsigned long Shader::getFileLength(std::ifstream& in)
 	{
 		if (!in.good()) return 0;
@@ -49,5 +87,23 @@ namespace graphics {
 		if (*shaderSource != 0)
 			delete[] * shaderSource;
 		*shaderSource = 0;
+	}
+
+	bool graphics::Shader::testCompileStatus(GLuint shader)
+	{
+		GLint success = 0;
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+		if (success == GL_FALSE)
+		{
+			GLint logLength = 0;
+			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
+			errorLog = new char[logLength];
+
+			glGetShaderInfoLog(shader, logLength, &logLength, errorLog);
+
+			glDeleteShader(shader);
+			return false;
+		}
+		return true;
 	}
 }
