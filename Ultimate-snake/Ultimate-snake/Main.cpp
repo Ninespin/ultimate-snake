@@ -8,6 +8,8 @@
 #include "Snake.h"
 #include "src\graphics\Window.h"
 
+#include "src\graphics\Shader.h"
+
 int testGlFW();
 void error_callback(int error, const char* description);
 
