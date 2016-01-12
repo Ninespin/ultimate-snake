@@ -30,9 +30,11 @@ private:
 	bool isdead = false;
 	int dx, dy,queued_dx,queued_dy;
 	std::vector<bodypart> parts;
-
+	
 
 public:
+	static const double moveDelayMS;
+
 	int getDx();
 	int getDy();
 	bool isDead();
