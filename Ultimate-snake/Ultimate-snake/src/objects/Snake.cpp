@@ -169,7 +169,9 @@ void Snake::setDy(int y) {
 
 
 
-
+/*
+	bodypart
+*/
 
 
 bodypart::bodypart(int x1, int y1,bool* b){
@@ -209,14 +211,3 @@ void bodypart::cycle() {
 
 
 
-Color::Color(float r1, float g1, float b1) {
-	r = r1;
-	g = g1;
-	b = b1;
-}
-
-void Color::changeColor(float r1, float g1, float b1) {
-	r = r1;
-	g = g1;
-	b = b1;
-}

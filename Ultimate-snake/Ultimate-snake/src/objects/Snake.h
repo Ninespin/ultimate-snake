@@ -4,13 +4,9 @@
 #include <vector>
 #include "..\input\Keyboard.h"
 #include "..\constants\windowConstants.h"
+#include "..\misc\Color.h"
 
-struct Color {
-	float r, g, b;
-	Color(float,float,float);
-	void changeColor(float, float, float);
 
-};
 
 struct bodypart {
 	int x, y,lastX,lastY;
