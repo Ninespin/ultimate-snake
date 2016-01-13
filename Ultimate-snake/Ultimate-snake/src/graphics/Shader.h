@@ -22,7 +22,7 @@ namespace graphics{
 		bool testCompileStatus(GLuint shader);
 		bool testLinkStatus(GLuint pogram);
 	public:
-		bool isError() const { return error; }
+		const bool isError() const { return error; }
 		const char* getError() const { return errorLog; }
 		GLuint getProgram() const;
 	};

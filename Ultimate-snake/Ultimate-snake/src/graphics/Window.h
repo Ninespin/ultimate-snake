@@ -3,6 +3,7 @@
 #include <GLFW\glfw3.h>
 
 #include "../input/Keyboard.h"
+#include "../constants/windowConstants.h"
 
 namespace graphics {
 

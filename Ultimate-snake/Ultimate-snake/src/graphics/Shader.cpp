@@ -5,10 +5,11 @@ namespace graphics {
 
 	Shader::Shader(const char* vertPath, const char* fragPath)
 	{
+		error = false;
 		vertShader = glCreateShader(GL_VERTEX_SHADER);
 		fragShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-		unsigned long vertSourceLength;
+		unsigned long vertSourceLength = 0;
 		GLchar * vertShaderSource[1];
 		int vertSourceFetchErr = loadShaderSource(vertPath, vertShaderSource, vertSourceLength);
 
@@ -52,11 +53,7 @@ namespace graphics {
 
 	Shader::~Shader()
 	{
-		delete[] errorLog;
-		if (!error)
-		{
-			glDeleteProgram(program);
-		}
+		glDeleteProgram(program);
 	}
 
 	unsigned long Shader::getFileLength(std::ifstream& in)

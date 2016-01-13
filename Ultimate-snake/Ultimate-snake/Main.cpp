@@ -7,8 +7,8 @@
 
 #include "src\objects\Snake.h"
 #include "src\graphics\Window.h"
-
 #include "src\graphics\Shader.h"
+#include "src\graphics\Renderer.h"
 
 int testGlFW();
 void error_callback(int error, const char* description);
@@ -31,19 +31,20 @@ int testGlFW()
 	Window w(600, 600, "ULTIMATE SNAAAAAKE");
 	Keyboard k(w);
 
-	//should be done by the renderer
 	GLenum err = glewInit();
-	if (GLEW_OK != err) 
+	if (GLEW_OK != err)
 	{
 		std::cerr << "GLEW failed to initialyze!" << std::endl;
-		return 2;
+		return -2;
 	}
-	Shader shader("src/graphics/Shaders/VertexShader.txt",
-		"src/graphics/Shaders/FragShader.txt");
-	if (shader.isError())
+
+	Renderer r(w);
+
+	if (r.isError())
 	{
-		std::cout << shader.getError() << std::endl;
+
 	}
+
 	glfwSwapInterval(1);
 
 	glClearColor(0, 0, 0, 1);
@@ -51,13 +52,6 @@ int testGlFW()
 	Snake s;
 
 	std::clock_t lastTimeMarkerMS = std::clock(), now;
-
-	//todo replace by union in wondow
-
-	GLint sizeLocation = glGetUniformLocation(shader.getProgram(), "screenRes");
-	glUseProgram(shader.getProgram());
-	glUniform2f(sizeLocation, w.getWidth(), w.getHeight());
-	glUseProgram(0);
 
 	int h = 0;
 	while (!w.shouldClose()) 
@@ -76,9 +70,7 @@ int testGlFW()
 		}
 
 		//draw
-		glUseProgram(shader.getProgram());
-		s.draw();
-		glUseProgram(0);
+		r.render(s);
 
 
 		w.postUpdate();

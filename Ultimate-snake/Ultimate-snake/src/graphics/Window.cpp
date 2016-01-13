@@ -38,7 +38,7 @@ namespace graphics {
 	{
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, 10, 0, 10, 1, -1);
+		glOrtho(0, NB_SQUARES_WIDTH, 0, NB_SQUARES_HEIGHT, 1, -1);
 	}
 
 	void Window::postUpdate()
