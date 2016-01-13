@@ -9,6 +9,7 @@
 #include "src\graphics\Window.h"
 #include "src\graphics\Shader.h"
 #include "src\graphics\Renderer.h"
+#include "src\objects\Orb.h"
 
 int testGlFW();
 void error_callback(int error, const char* description);
@@ -50,6 +51,7 @@ int testGlFW()
 	glClearColor(0, 0, 0, 1);
 
 	Snake s;
+	Orb* testOrb = new Orb(10,10);
 
 	std::clock_t lastTimeMarkerMS = std::clock(), now;
 
@@ -60,10 +62,15 @@ int testGlFW()
 		glClear(GL_COLOR_BUFFER_BIT);
 		s.updateKeyboard(k);
 
+		(*testOrb).update();
+
 		//movement
 		now = std::clock();
 		double deltaT = (now - lastTimeMarkerMS) / (double)(CLOCKS_PER_SEC / 1000);
 		if (deltaT >= 250) {//each 250 ms
+			if (s.isOverOrb(testOrb)) {
+				s.addPart();
+			}
 			s.move();
 
 			lastTimeMarkerMS = now;

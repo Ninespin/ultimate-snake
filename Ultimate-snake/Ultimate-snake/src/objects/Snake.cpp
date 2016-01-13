@@ -40,6 +40,8 @@ Snake::~Snake() {
 
 void Snake::move() {
 	if (!isdead) {
+
+		//move
 		dx = queued_dx;
 		dy = queued_dy;
 		for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
@@ -140,6 +142,22 @@ void Snake::addPart(bodypart* p) {
 	refreshBodyparts();
 
 
+}
+void Snake::addPart() {
+	float nx, ny;
+	nx = parts.back().x + parts.back().x - (*(parts.rbegin() + 1)).x;
+	ny = parts.back().y + parts.back().y - (*(parts.rbegin() + 1)).y;
+
+	bodypart* p1 = { new bodypart(nx,ny,&isdead) };
+	addPart(p1);
+	delete p1;
+}
+
+bool Snake::isOverOrb(Orb* orb) {
+	if (parts.at(0).x == (*orb).getX() && parts.at(0).y == (*orb).getY()) {
+		return true;
+	}
+	return false;
 }
 
 

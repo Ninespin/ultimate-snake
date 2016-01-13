@@ -5,6 +5,7 @@
 #include "..\input\Keyboard.h"
 #include "..\constants\windowConstants.h"
 #include "..\misc\Color.h"
+#include "Orb.h"
 
 
 
@@ -47,8 +48,10 @@ public:
 	void updateKeyboard(const Keyboard& key);
 	void refreshBodyparts();
 	void addPart(bodypart*);
+	void addPart();
 	void checkIfDead();
 	void die();
+	bool isOverOrb(Orb*);
 	Snake();
 	~Snake();
 };
