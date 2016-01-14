@@ -33,6 +33,7 @@ private:
 	int dx, dy,queued_dx,queued_dy;
 	std::vector<bodypart> parts;
 	double moveDelayMS;
+	int snakeLength = 0;
 
 public:
 	static const double minimalMoveDelayMS;

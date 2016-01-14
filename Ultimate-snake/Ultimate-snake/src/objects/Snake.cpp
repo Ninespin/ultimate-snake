@@ -12,6 +12,7 @@ const double Snake::moveDelayStepMS = 10;
 
 //methods
 Snake::Snake() {
+	snakeLength = 0;
 	moveDelayMS = 250;
 
 	bodypart* p1 = { new bodypart(1,1,&isdead) };
@@ -86,8 +87,13 @@ void Snake::checkIfDead() {
 }
 
 void Snake::die(){
-	dx = dy = queued_dx = queued_dy = 0;
-	isdead = true;
+	if (!isdead) {
+		std::cout << "\n\nGame Over! You scored " << snakeLength << " points.";
+		dx = dy = queued_dx = queued_dy = 0;
+		isdead = true;
+	}
+	
+	
 
 }
 
@@ -138,15 +144,13 @@ void Snake::refreshBodyparts() {
 
 void Snake::addPart(bodypart* p) {
 	parts.push_back(*p);
-	refreshBodyparts();
-
+	snakeLength++;
 
 }
 void Snake::addPart() {
 	float nx, ny;
 	nx = parts.back().x + parts.back().x - (*(parts.rbegin() + 1)).x;
 	ny = parts.back().y + parts.back().y - (*(parts.rbegin() + 1)).y;
-
 	bodypart* p1 = { new bodypart(nx,ny,&isdead) };
 	addPart(p1);
 	delete p1;

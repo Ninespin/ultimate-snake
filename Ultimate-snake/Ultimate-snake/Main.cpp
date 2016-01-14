@@ -55,6 +55,7 @@ int testGlFW()
 	Orb* testOrb = new Orb(10,10);
 	Wall* testWall = new Wall(5,5);
 
+
 	std::clock_t lastTimeMarkerMS = std::clock(), now;
 
 	int h = 0;
