@@ -67,7 +67,7 @@ int testGlFW()
 		//movement
 		now = std::clock();
 		double deltaT = (now - lastTimeMarkerMS) / (double)(CLOCKS_PER_SEC / 1000);
-		if (deltaT >= 250) {//each 250 ms
+		if (deltaT >= s.getMoveDelayMS()) {//each 250 ms
 			if (s.isOverOrb(testOrb)) {
 				s.addPart();
 			}

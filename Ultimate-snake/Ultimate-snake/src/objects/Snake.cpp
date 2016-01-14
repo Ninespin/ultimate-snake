@@ -6,10 +6,14 @@
   ==================*/
 
 //static constants
-const double Snake::moveDelayMS = 250;
+const double Snake::minimalMoveDelayMS = 10;
+const double Snake::moveDelayStepMS = 10;
+
 
 //methods
 Snake::Snake() {
+	moveDelayMS = 250;
+
 	bodypart* p1 = { new bodypart(1,1,&isdead) };
 	addPart(p1);
 	delete p1;
@@ -84,12 +88,7 @@ void Snake::checkIfDead() {
 void Snake::die(){
 	dx = dy = queued_dx = queued_dy = 0;
 	isdead = true;
-	/*for (std::vector<bodypart>::iterator i = parts.begin(); i != parts.end(); i++) {
-		(*i).color.r = 255;
-		(*i).color.g = 0;
-		(*i).color.b = 255;
 
-	}*/
 }
 
 void Snake::updateKeyboard(const Keyboard& key)
@@ -155,6 +154,12 @@ void Snake::addPart() {
 
 bool Snake::isOverOrb(Orb* orb) {
 	if (parts.at(0).x == (*orb).getX() && parts.at(0).y == (*orb).getY()) {
+		(*orb).move();
+		moveDelayMS -= moveDelayStepMS;
+		if (moveDelayMS < minimalMoveDelayMS) {
+			moveDelayMS = minimalMoveDelayMS;
+		}
+		std::cout << "\n" << moveDelayMS;
 		return true;
 	}
 	return false;
@@ -182,6 +187,9 @@ bodypart* Snake::getBodypartAt(int i) {
 	return &(parts.at(i));
 }
 
+double Snake::getMoveDelayMS(){
+	return moveDelayMS;
+}
 
 //sets
 void Snake::setDx(int x){
@@ -192,6 +200,9 @@ void Snake::setDy(int y) {
 	dy = y;
 }
 
+void Snake::setMoveDelayMS(double d) {
+	moveDelayMS = d;
+}
 
 
 /*=======================

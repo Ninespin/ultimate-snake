@@ -12,7 +12,7 @@ private:
 	std::clock_t lastTimeMarker, now;
 	double deltaT;
 	float fadeLevel,fadeStep, fadeSpeedMS,width = 1, height = 1;
-
+	bool lockdraw = false;
 
 public:
 	Orb(int,int);
@@ -23,4 +23,6 @@ public:
 	void makeDeltaTNow();
 	void update();
 	void draw();
+	void move();
+	void resetFade();
 };

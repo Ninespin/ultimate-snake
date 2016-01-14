@@ -1,5 +1,14 @@
 #include "Orb.h"
 #include "..\misc\Color.h"
+#ifndef STDLIB_H
+#include <stdlib.h>
+#endif
+#ifndef TIME_H
+#include <time.h>
+#endif
+#ifndef WINDOWCONSTANTS_H
+#include "..\constants\windowConstants.h"
+#endif
 
 Orb::Orb(int x1, int y1) {
 	x = x1, y = y1;
@@ -36,8 +45,6 @@ void Orb::update() {
 
 void Orb::draw() {
 	glBegin(GL_TRIANGLE_FAN);
-
-	
 	glColor3f(0, 0, 0);
 		glVertex2f(x + width / 2, y + height / 2);//center of the box
 	glColor3f(currentColor.r, currentColor.g, currentColor.b);
@@ -46,8 +53,22 @@ void Orb::draw() {
 		glVertex2f(x + width, y + height);
 		glVertex2f(x, y + height);
 		glVertex2f(x, y);
-
 	glEnd();
+	
+}
+
+void Orb::move() {
+	resetFade();
+	srand(time(NULL));
+	x = rand() % NB_SQUARES_WIDTH;
+	y = rand() % NB_SQUARES_HEIGHT;
+	
+}
+
+void Orb::resetFade() {
+	fadeLevel = 0;
+	currentColor = originalColor;
+	lastTimeMarker = std::clock();
 }
 
 //get
