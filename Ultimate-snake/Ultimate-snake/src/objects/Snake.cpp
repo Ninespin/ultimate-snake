@@ -159,7 +159,13 @@ bool Snake::isOverOrb(Orb* orb) {
 		if (moveDelayMS < minimalMoveDelayMS) {
 			moveDelayMS = minimalMoveDelayMS;
 		}
-		std::cout << "\n" << moveDelayMS;
+		std::cout << "\n[Snake.cpp { isOverOrb(Orb*) }]: Move delay set at " << moveDelayMS << "ms.";
+		return true;
+	}
+	return false;
+}
+bool Snake::isOverWall(Wall* wall) {
+	if (parts.at(0).x == (*wall).getX() && parts.at(0).y == (*wall).getY()) {
 		return true;
 	}
 	return false;

@@ -10,6 +10,7 @@
 #include "src\graphics\Shader.h"
 #include "src\graphics\Renderer.h"
 #include "src\objects\Orb.h"
+#include "src\objects\Wall.h"
 
 int testGlFW();
 void error_callback(int error, const char* description);
@@ -52,6 +53,7 @@ int testGlFW()
 
 	Snake s;
 	Orb* testOrb = new Orb(10,10);
+	Wall* testWall = new Wall(5,5);
 
 	std::clock_t lastTimeMarkerMS = std::clock(), now;
 
@@ -63,16 +65,20 @@ int testGlFW()
 		s.updateKeyboard(k);
 
 		(*testOrb).update();
+		(*testWall).update();
 
 		//movement
 		now = std::clock();
 		double deltaT = (now - lastTimeMarkerMS) / (double)(CLOCKS_PER_SEC / 1000);
-		if (deltaT >= s.getMoveDelayMS()) {//each 250 ms
+		if (deltaT >= s.getMoveDelayMS()) {
 			if (s.isOverOrb(testOrb)) {
 				s.addPart();
 			}
 			s.move();
-
+			if (s.isOverWall(testWall)) {
+				s.die();
+			}
+			
 			lastTimeMarkerMS = now;
 		}
 

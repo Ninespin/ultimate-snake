@@ -6,6 +6,7 @@
 #include "..\constants\windowConstants.h"
 #include "..\misc\Color.h"
 #include "Orb.h"
+#include "Wall.h"
 
 
 
@@ -54,6 +55,7 @@ public:
 	void checkIfDead();
 	void die();
 	bool isOverOrb(Orb*);
+	bool isOverWall(Wall*);
 	Snake();
 	~Snake();
 };

@@ -136,6 +136,7 @@
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\input\Keyboard.cpp" />
     <ClCompile Include="src\math\Vec2.cpp" />
+    <ClCompile Include="src\objects\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\misc\Color.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\input\Keyboard.h" />
     <ClInclude Include="src\math\Vec2.h" />
+    <ClInclude Include="src\objects\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\graphics\Shaders\FragShader.txt" />
